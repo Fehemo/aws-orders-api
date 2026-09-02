@@ -16,4 +16,12 @@ export class AppController {
        status: 'ok',
    };
   }
+
+  @Get('api/v1/health')
+healthV1() {
+  return {
+    status: 'ok',
+    version: 'v1',
+  };
+}
 }

@@ -55,16 +55,6 @@ updateStatus(
   );
 }
 
-  @Put(':id/status')
-updateStatus(
-  @Param('id') id: string,
-  @Body() updateOrderStatusDto: UpdateOrderStatusDto,
-) {
-  return this.ordersService.updateStatus(
-    Number(id),
-    updateOrderStatusDto.status,
-  );
-}
 
   
 
