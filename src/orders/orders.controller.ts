@@ -2,6 +2,7 @@ import { Body, Controller, Get, Post, Param, Put, Delete, Query } from '@nestjs/
 import { OrdersService } from './orders.service.js';
 import { CreateOrderDto } from './dto/create-order.dto.js';
 import { UpdateOrderDto } from './dto/update-order.dto.js';
+import { UpdateOrderStatusDto } from './dto/update-order-status.dto.js';
 
 @Controller('orders')
 export class OrdersController {
@@ -42,6 +43,28 @@ findByCustomer(@Query('customerId') customerId: string) {
   remove(@Param('id') id: string)  {
     return this.ordersService.remove(Number(id));
   }
+
+  @Put(':id/status')
+updateStatus(
+  @Param('id') id: string,
+  @Body() updateOrderStatusDto: UpdateOrderStatusDto,
+) {
+  return this.ordersService.updateStatus(
+    Number(id),
+    updateOrderStatusDto.status,
+  );
+}
+
+  @Put(':id/status')
+updateStatus(
+  @Param('id') id: string,
+  @Body() updateOrderStatusDto: UpdateOrderStatusDto,
+) {
+  return this.ordersService.updateStatus(
+    Number(id),
+    updateOrderStatusDto.status,
+  );
+}
 
   
 

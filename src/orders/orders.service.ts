@@ -62,5 +62,16 @@ export class OrdersService {
     },
   });
 }
+  async updateStatus(
+  id: number,
+  status: string,
+) {
+  const order = await this.findOne(id);
+
+  order.status = status;
+
+  return this.ordersRepository.save(order);
+}
+
   
 }
