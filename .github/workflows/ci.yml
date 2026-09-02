@@ -40,13 +40,6 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Debug GitHub context
-        run: |
-          echo "Repository: ${{ github.repository }}"
-          echo "Ref: ${{ github.ref }}"
-          echo "Event: ${{ github.event_name }}"
-          echo "Actor: ${{ github.actor }}"
-
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
