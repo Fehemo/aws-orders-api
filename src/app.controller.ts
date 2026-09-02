@@ -21,7 +21,7 @@ export class AppController {
 healthV1() {
   return {
     status: 'ok',
-    version: 'v1',
+    version: '1.0.0',
   };
 }
 }
