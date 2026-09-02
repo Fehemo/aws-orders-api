@@ -54,5 +54,13 @@ export class OrdersService {
         message: `Order ${id} deleted successfully`,
     };
   }
+
+  async findByCustomer(customerId: number) {
+  return this.ordersRepository.find({
+    where: {
+      customerId,
+    },
+  });
+}
   
 }
