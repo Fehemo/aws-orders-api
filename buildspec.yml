@@ -14,3 +14,5 @@ phases:
       - npm test
       - npm run build
       - docker build -t orders-api:latest .
+      - docker tag orders-api:latest 593777010364.dkr.ecr.us-east-2.amazonaws.com/orders-api:latest
+      - docker push 593777010364.dkr.ecr.us-east-2.amazonaws.com/orders-api:latest
