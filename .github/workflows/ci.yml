@@ -39,8 +39,10 @@ jobs:
 
       - name: Build
         run: npm run build
+        
 
       - name: Configure AWS credentials
+        id: aws
         uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: arn:aws:iam::593777010364:role/GitHubActionsECRRole
