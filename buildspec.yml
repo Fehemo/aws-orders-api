@@ -13,3 +13,4 @@ phases:
       - npm run lint
       - npm test
       - npm run build
+      - docker build -t orders-api:latest .
