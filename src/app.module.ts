@@ -41,6 +41,8 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
         autoLoadEntities: true,
 
         synchronize: true,
+
+        ssl: true,
       }),
     }),
     OrdersModule,
