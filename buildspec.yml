@@ -13,10 +13,10 @@ phases:
       - npm run lint
       - npm test
       - npm run build
-      - docker build -t orders-api:latest .
-      - docker tag orders-api:latest 593777010364.dkr.ecr.us-east-2.amazonaws.com/orders-api:latest
-      - docker push 593777010364.dkr.ecr.us-east-2.amazonaws.com/orders-api:latest
-      - printf '[{"name":"Main","imageUri":"593777010364.dkr.ecr.us-east-2.amazonaws.com/orders-api:latest"}]' > imagedefinitions.json
+      - docker build -t orders-api:$CODEBUILD_RESOLVED_SOURCE_VERSION .
+      - docker tag orders-api:$CODEBUILD_RESOLVED_SOURCE_VERSION 593777010364.dkr.ecr.us-east-2.amazonaws.com/orders-api:$CODEBUILD_RESOLVED_SOURCE_VERSION
+      - docker push 593777010364.dkr.ecr.us-east-2.amazonaws.com/orders-api:$CODEBUILD_RESOLVED_SOURCE_VERSION
+      - printf '[{"name":"Main","imageUri":"593777010364.dkr.ecr.us-east-2.amazonaws.com/orders-api:%s"}]' "$CODEBUILD_RESOLVED_SOURCE_VERSION" > imagedefinitions.json
 artifacts:
   files:
-    - imagedefinitions.json      
+    - imagedefinitions.json
