@@ -42,7 +42,9 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
 
         synchronize: true,
 
-        ssl: true,
+        ssl: {
+          rejectUnauthorized: false,
+        },
       }),
     }),
     OrdersModule,
