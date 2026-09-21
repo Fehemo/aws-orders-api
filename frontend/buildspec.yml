@@ -1,15 +1,19 @@
 version: 0.2
 
+env:
+  variables:
+    FRONTEND_DIR: frontend
+
 phases:
   install:
     commands:
-      - cd frontend && npm ci
+      - npm ci --prefix $FRONTEND_DIR
 
   build:
     commands:
-      - cd frontend && npm run build
+      - npm run build --prefix $FRONTEND_DIR
 
   post_build:
     commands:
-      - aws s3 sync frontend/dist/ s3://aws-orders-api-frontend-593777010364/
+      - aws s3 sync $FRONTEND_DIR/dist/ s3://aws-orders-api-frontend-593777010364/
       - aws cloudfront create-invalidation --distribution-id E2WSAWHEAVEO6K --paths "/*"
