@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { userManager } from './auth';
+import { apiFetch } from './api';
 
 
 type Order = {
@@ -40,6 +41,18 @@ function App() {
   const [statusError, setStatusError] = useState('');
   const [updatingStatus, setUpdatingStatus] = useState(false);
 
+  useEffect(() => {
+  const checkUser = async () => {
+    const user = await userManager.getUser();
+
+    console.log('Authenticated user:', user);
+    console.log('Access token:', user?.access_token);
+    console.log('ID token:', user?.id_token);
+  };
+
+  checkUser();
+}, []);
+
 
   useEffect(() => {
   const handleAuthCallback = async () => {
@@ -72,7 +85,7 @@ function App() {
           ? `${import.meta.env.VITE_API_URL}/orders`
           : `${import.meta.env.VITE_API_URL}/orders/search?customerId=${customerId}`;
 
-      const response = await fetch(endpoint);
+      const response = await apiFetch(endpoint);
 
       if (!response.ok) {
         throw new Error('Failed to load orders');
@@ -116,7 +129,7 @@ if (Number(newOrder.total) < 0) {
   setSaving(true);
 
   try {
-    const response = await fetch(
+    const response = await apiFetch(
       `${import.meta.env.VITE_API_URL}/orders`,
       {
         method: 'POST',
@@ -155,7 +168,7 @@ if (Number(newOrder.total) < 0) {
 };
 
   const handleView = async (id: number) => {
-  const response = await fetch(
+  const response = await apiFetch(
     `${import.meta.env.VITE_API_URL}/orders/${id}`,
   );
 
@@ -188,7 +201,7 @@ if (Number(newOrder.total) < 0) {
 setUpdating(true);
 
   try {
-    const response = await fetch(
+    const response = await apiFetch(
       `${import.meta.env.VITE_API_URL}/orders/${editingOrder.id}`,
       {
         method: 'PUT',
@@ -233,7 +246,7 @@ setUpdating(true);
   setDeleting(true);
 
   try {
-    const response = await fetch(
+    const response = await apiFetch(
       `${import.meta.env.VITE_API_URL}/orders/${id}`,
       {
         method: 'DELETE',
@@ -267,7 +280,7 @@ setUpdating(true);
   setStatusError('');
   setUpdatingStatus(true);
   try {
-  const response = await fetch(
+  const response = await apiFetch(
     `${import.meta.env.VITE_API_URL}/orders/${id}/status`,
     {
       method: 'PUT',

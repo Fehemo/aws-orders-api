@@ -7,12 +7,12 @@ export const userManager = new UserManager({
   client_id: '1ln17fsno6g7mb1irkomsb53im',
 
   redirect_uri:
-    'https://dpuww6uikxky6.cloudfront.net',
+  'http://localhost:5173',
 
   response_type: 'code',
 
   scope: 'openid email',
 
   post_logout_redirect_uri:
-    'https://dpuww6uikxky6.cloudfront.net',
+  'http://localhost:5173',
 });

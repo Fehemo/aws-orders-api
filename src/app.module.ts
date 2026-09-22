@@ -42,9 +42,9 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
 
         synchronize: true,
 
-        ssl: {
-          rejectUnauthorized: false,
-        },
+        ssl: configService.get<string>('DB_SSL') === 'true'
+  ? { rejectUnauthorized: false }
+  : false,
       }),
     }),
     OrdersModule,

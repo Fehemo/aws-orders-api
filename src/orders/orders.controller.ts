@@ -1,10 +1,22 @@
-import { Body, Controller, Get, Post, Param, Put, Delete, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  Param,
+  Put,
+  Delete,
+  Query,
+  UseGuards,
+} from '@nestjs/common';
 import { OrdersService } from './orders.service.js';
 import { CreateOrderDto } from './dto/create-order.dto.js';
 import { UpdateOrderDto } from './dto/update-order.dto.js';
 import { UpdateOrderStatusDto } from './dto/update-order-status.dto.js';
+import { CognitoAuthGuard } from '../auth/cognito-auth.guard.js';
 
 @Controller('orders')
+@UseGuards(CognitoAuthGuard)
 export class OrdersController {
   constructor(private readonly ordersService: OrdersService) {}
 
@@ -14,9 +26,9 @@ export class OrdersController {
   }
 
   @Get('search')
-findByCustomer(@Query('customerId') customerId: string) {
-  return this.ordersService.findByCustomer(Number(customerId));
-}
+    findByCustomer(@Query('customerId') customerId: string) {
+    return this.ordersService.findByCustomer(Number(customerId));
+  }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
