@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import { userManager } from './auth';
+
 
 type Order = {
   id: number;
@@ -16,6 +18,9 @@ const ORDER_STATUSES: Order['status'][] = [
 ];
 
 function App() {
+  const handleLogin = () => {
+    userManager.signinRedirect();
+   }; 
   const [orders, setOrders] = useState<Order[]>([]);
   const [customerId, setCustomerId] = useState('');
   const [loading, setLoading] = useState(true);
@@ -34,6 +39,27 @@ function App() {
   const [deleting, setDeleting] = useState(false);
   const [statusError, setStatusError] = useState('');
   const [updatingStatus, setUpdatingStatus] = useState(false);
+
+
+  useEffect(() => {
+  const handleAuthCallback = async () => {
+    try {
+      if (window.location.search.includes('code=')) {
+        await userManager.signinRedirectCallback();
+
+        window.history.replaceState(
+          {},
+          document.title,
+          window.location.pathname,
+        );
+      }
+    } catch (error) {
+      console.error('Authentication callback failed', error);
+    }
+  };
+
+  handleAuthCallback();
+}, []);
 
   useEffect(() => {
   const loadOrders = async () => {
@@ -275,6 +301,10 @@ setUpdating(true);
   return (
     <main>
       <h1>Orders API</h1>
+
+      <button type="button" onClick={handleLogin}>
+         Login with Cognito
+      </button>
 
       <section>
         <h2>Orders</h2>
